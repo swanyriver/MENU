@@ -74,6 +74,11 @@ public:
    void addItem ( MenuItem item ) {
       menuItems.push_back( item );
    }
+   void addItem(void (*itemFunction) () , string itemTitle , string itemIntro ,
+         string itemRepeatprompt = DFLT_REPEART){
+      MenuItem addedItem(itemFunction,itemTitle,itemIntro,itemRepeatprompt);
+      addItem(addedItem);
+   }
 
    void showMenu ( bool withIntro = true ) {
       int demoItemNumber = -1;
