@@ -19,7 +19,7 @@
 #include <cstdlib>
 #include <climits>
 #include <list>
-#include "myFunctions.h"
+#include "myFunctions.hpp"
 #include "menu.hpp"
 
 using namespace std;
@@ -48,9 +48,9 @@ int main () {
          << "I have a great variety of functionality to show you";
 
    Menu myMenu("wich would you like to see now:");
-   myMenu.demoAllItem=true;
-   myMenu.exitMenuItem=true;
-   myMenu.menuRepeat=true;
+   //myMenu.demoAllItem=true;
+  // myMenu.exitMenuItem=true;
+   //myMenu.menuRepeat=true;
 
    myMenu.addItem(FormatName,"format a name","","format more names");
    myMenu.addItem(RandomNumbers,"random Numbers","","more random numbers");

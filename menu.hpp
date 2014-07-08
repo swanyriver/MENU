@@ -23,7 +23,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "myFunctions.h"
+#include "myFunctions.hpp"
 using namespace std;
 
 //strings for menu
@@ -74,8 +74,8 @@ public:
 
    //constructor for menu
    Menu ( string intro ) :
-         menuIntro( intro ), menuRepeat( false ),
-         demoAllItem( false ), exitMenuItem( false ) {}
+         menuIntro( intro ), menuRepeat( true ),
+         demoAllItem( true ), exitMenuItem( true ) {}
 
    //add an item to the menu
    void addItem ( MenuItem item ) {
