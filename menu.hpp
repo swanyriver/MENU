@@ -4,15 +4,16 @@
  *
  *  Date Created: 07-06-2014
  *
- *  Last Modification Date: 07-06-2014
+ *  Last Modification Date: 07-07-2014
  *
  *  Filename: menu.hpp
  *
- *  Overview:
+ *  Overview: Holds a list of Menu Items which contain output strings and a
+ *  single void() function to be executed upon selection
  *
- *  Input:
+ *  Input: an integer from [1-Number of selections available]
  *
- *  Output:
+ *  Output:selected function is executed
  *
  * **********************************************************/
 
@@ -25,12 +26,13 @@
 #include "myFunctions.h"
 using namespace std;
 
+//strings for menu
 #define DFLT_REPEART "would you like to do that again"
-#define QUIT "EXIT PROGRAM"
 #define EXIT "EXIT MENU"
 #define SHOW_ALL "DEMONSTRATE ALL FUNCTIONS"
 #define NUM_IN "Please choose by number:"
 
+//items to be added to menu
 class MenuItem {
 private:
    void (*myFunction) ();
@@ -38,6 +40,8 @@ public:
    string title, intro, repeatpromt;
    bool itemRepeat;
    bool hasIntro;
+
+   //constructor for menu item
    MenuItem ( void (*itemFunction) () , string itemTitle , string itemIntro ,
          string itemRepeatprompt = DFLT_REPEART ) {
       itemRepeat = true;
@@ -48,6 +52,7 @@ public:
       myFunction = itemFunction;
    }
 
+   //introduces and executes the function held by menu item
    void ItemSelected () {
       do {
          if ( hasIntro )
@@ -64,26 +69,31 @@ private:
 
 public:
 
-   bool menuRepeat;
-   bool demoAllItem, exitMenuItem;
+   bool menuRepeat; //controls if menu repeats
+   bool demoAllItem, exitMenuItem; //include items for menu functions
 
+   //constructor for menu
    Menu ( string intro ) :
          menuIntro( intro ), menuRepeat( false ),
          demoAllItem( false ), exitMenuItem( false ) {}
 
+   //add an item to the menu
    void addItem ( MenuItem item ) {
       menuItems.push_back( item );
    }
+   //constructs a menu item with passed parameters and defualts, adds it to menu
    void addItem(void (*itemFunction) () , string itemTitle , string itemIntro ,
          string itemRepeatprompt = DFLT_REPEART){
       MenuItem addedItem(itemFunction,itemTitle,itemIntro,itemRepeatprompt);
       addItem(addedItem);
    }
 
+   //display menu options and prompt for selection
    void showMenu ( bool withIntro = true ) {
       int demoItemNumber = -1;
       int exitItemNumber = -1;
       do {
+         ///////////display menu////////////////////
          if ( withIntro )
             cout << endl << menuIntro << endl;
          int i = 0;
@@ -92,21 +102,19 @@ public:
             cout << menuItems.at( i ).title;
             cout << endl;
          }
+         ////////////display menu function items/////
          i++;
          if(demoAllItem){
             cout << "[" << i << "] " << SHOW_ALL << endl;
             demoItemNumber = i;
             i++;
-            //for ( int i = 0 ; i < menuItems.size() ; i++ )
-            //   menuItems.at(i).ItemSelected;
          }
          if(exitMenuItem){
             cout << "[" << i << "] " << EXIT << endl;
             exitItemNumber = i;
          }
 
-
-         //get selection
+         //get selection//////////
          int selection = swansonInput::GetInt( NUM_IN , 1 , menuItems.size() + demoAllItem + exitMenuItem );
 
          //execute selection
@@ -120,7 +128,7 @@ public:
             menuItems.at( selection - 1 ).ItemSelected();
          }
 
-      } while ( menuRepeat );
+      } while ( menuRepeat ); //repeat menu
    }
 
 };
