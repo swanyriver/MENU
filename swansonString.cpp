@@ -11,7 +11,7 @@
 
 #include <string>
 #include <list>
-#include "myFunctions.h"
+#include "myFunctions.hpp"
 
 using namespace std;
 

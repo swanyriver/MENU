@@ -74,18 +74,20 @@ public:
 
    //constructor for menu
    Menu ( string intro ) :
-         menuIntro( intro ), menuRepeat( true ),
-         demoAllItem( true ), exitMenuItem( true ) {}
+         menuIntro( intro ), menuRepeat( true ), demoAllItem( true ), exitMenuItem(
+               true ) {
+   }
 
    //add an item to the menu
    void addItem ( MenuItem item ) {
       menuItems.push_back( item );
    }
    //constructs a menu item with passed parameters and defualts, adds it to menu
-   void addItem(void (*itemFunction) () , string itemTitle , string itemIntro ,
-         string itemRepeatprompt = DFLT_REPEART){
-      MenuItem addedItem(itemFunction,itemTitle,itemIntro,itemRepeatprompt);
-      addItem(addedItem);
+   void addItem ( void (*itemFunction) () , string itemTitle ,
+         string itemIntro , string itemRepeatprompt = DFLT_REPEART ) {
+      MenuItem addedItem( itemFunction , itemTitle , itemIntro ,
+            itemRepeatprompt );
+      addItem( addedItem );
    }
 
    //display menu options and prompt for selection
@@ -97,38 +99,54 @@ public:
          if ( withIntro )
             cout << endl << menuIntro << endl;
          int i = 0;
-         for (; i < menuItems.size() ; i++ ) {
+         for ( ; i < menuItems.size() ; i++ ) {
             cout << "[" << i + 1 << "] ";
             cout << menuItems.at( i ).title;
             cout << endl;
          }
          ////////////display menu function items/////
          i++;
-         if(demoAllItem){
+         if ( demoAllItem ) {
             cout << "[" << i << "] " << SHOW_ALL << endl;
             demoItemNumber = i;
             i++;
          }
-         if(exitMenuItem){
+         if ( exitMenuItem ) {
             cout << "[" << i << "] " << EXIT << endl;
             exitItemNumber = i;
          }
 
          //get selection//////////
-         int selection = swansonInput::GetInt( NUM_IN , 1 , menuItems.size() + demoAllItem + exitMenuItem );
+         int selection = swansonInput::GetInt( NUM_IN , 1 ,
+               menuItems.size() + demoAllItem + exitMenuItem );
 
          //execute selection
-         if(selection == demoItemNumber){
+         if ( selection == demoItemNumber ) {
             for ( int i = 0 ; i < menuItems.size() ; i++ )
-               menuItems.at(i).ItemSelected();
-         } else if (selection == exitItemNumber){
-            menuRepeat=false;
-         }
-         else{
+               menuItems.at( i ).ItemSelected();
+         } else if ( selection == exitItemNumber ) {
+            menuRepeat = false;
+         } else {
             menuItems.at( selection - 1 ).ItemSelected();
          }
 
       } while ( menuRepeat ); //repeat menu
+   }
+
+   //used for passing in the number you wish selected
+   void runFromCommandLine ( int argc , char* argv[] ) {
+      for ( int i = 1 ; i < argc ; i++ ) {
+
+         if ( swansonString::AllNumbers( argv[i] ) ) {
+            int selectionNumber = strtol( argv[i] , NULL , 0 );
+            if ( selectionNumber > 1
+                  && selectionNumber
+                        <= (menuItems.size() + demoAllItem + exitMenuItem) ) {
+               menuItems.at( i ).ItemSelected();
+            }
+
+         }
+      }
    }
 
 };

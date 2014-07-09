@@ -7,7 +7,7 @@
  * Overview: A collections of array and random number utility functions
  ***********************************************************/
 
-#include "myFunctions.h"
+#include "myFunctions.hpp"
 #include <cstdlib>
 #include <ctime>
 

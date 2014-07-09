@@ -32,7 +32,7 @@ void BetterRandom ();
 void MilesPerGallon ();
 void SelectFinalist ();
 
-int main () {
+int main (int argc , char* argv[] ) {
   // const int NUMBER_OF_SELECTIONS = 7;
   // const int PLAY_ALL = NUMBER_OF_SELECTIONS + 1;
    //const int QUIT = NUMBER_OF_SELECTIONS + 2;
@@ -57,6 +57,8 @@ int main () {
    myMenu.addItem(BetterRandom,"better random","","more random numbers");
    myMenu.addItem(MilesPerGallon,"miles per gallon","","compute more mpg");
    myMenu.addItem(SelectFinalist,"select finalist","","select more finalist");
+
+   myMenu.runFromCommandLine(argc,argv);
 
    myMenu.showMenu();
 

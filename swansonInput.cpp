@@ -11,7 +11,7 @@
 
 #include <string>
 #include <iostream>
-#include "myFunctions.h"
+#include "myFunctions.hpp"
 #include <climits>
 #include <cstdlib> 
 #include <cfloat>
