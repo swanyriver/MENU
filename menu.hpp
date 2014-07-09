@@ -21,6 +21,7 @@
 #define MENU_HPP_
 
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include <vector>
 #include "myFunctions.hpp"
